@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png">
+        <meta name="apple-mobile-web-app-title" content="CodePen">
+        <link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico">
+        <link rel="mask-icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111">
+        <title>Easy Slider</title>
+        <style>
+            body {
+            background: #178;
+            }
+
+            h1 {
+            text-align: center;
+            color: #ff5;
+            }
+
+            .container {
+            margin-top: 10vh;
+            height: 80vh;
+            display: flex;
+            }
+
+            .slider {
+            margin: 0 5px;
+            border-radius: 0 10px 10px 0;
+            flex: 1;
+            transition: all ease-out 1s;
+            position: relative;
+            cursor: pointer;
+            }
+            .slider:nth-child(1) {
+            background: url("https://images.unsplash.com/photo-1569228488691-3e94a47d8f5d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80");
+            }
+            .slider:nth-child(2) {
+            background: url("https://images.unsplash.com/photo-1554098415-788601c80aef?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80");
+            }
+            .slider:nth-child(3) {
+            background: url("https://images.unsplash.com/photo-1483058712412-4245e9b90334?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80");
+            }
+            .slider:nth-child(4) {
+            background: url("https://images.unsplash.com/photo-1625297672303-64bf96394e10?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80");
+            }
+            .slider:nth-child(5) {
+            background: url("https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80");
+            }
+            .slider.active {
+            flex: 10;
+            }
+            .slider h2 {
+            position: absolute;
+            padding: 5px 50px 5px 10px;
+            border-radius: 0 10px 10px 0;
+            bottom: 30px;
+            left: 0;
+            color: #178;
+            background: #ff5;
+            }
+        </style>
+    </head>
+    <body translate="no">
+        <h1>SLIDER</h1>
+        <div class="container">
+            <div class="slider">
+                <h2>#<span>1</span></h2>
+            </div>
+            <div class="slider">
+                <h2>#<span>2</span></h2>
+            </div>
+            <div class="slider">
+                <h2>#<span>3</span></h2>
+            </div>
+            <div class="slider active">
+                <h2>#<span>4</span></h2>
+            </div>
+            <div class="slider">
+                <h2>#<span>5</span></h2>
+            </div>
+        </div>
+        <script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-1b93190375e9ccc259df3a57c1abc0e64599724ae30d7ea4c6877eb615f89387.js"></script>
+        <script id="rendered-js">
+            const slides = document.getElementsByClassName("slider");
+
+            for (const slide of slides) {
+            slide.addEventListener('click', () => {
+
+                classRemover();
+
+                slide.classList.add('active');
+
+            });
+
+
+            }
+
+            function classRemover() {
+
+            for (const slide of slides) {
+                slide.classList.remove('active');
+            }
+            }
+        </script>
+        <script>
+            window.console = window.console || function(t) {};
+        </script>
+        <script>
+            if (document.location.search.match(/type=embed/gi)) {
+            window.parent.postMessage("resize", "*");
+            }
+        </script>
+    </body>
+</html>
