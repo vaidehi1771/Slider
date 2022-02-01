@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png">
+        <meta name="apple-mobile-web-app-title" content="CodePen">
+        <link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico">
+        <link rel="mask-icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111">
+        <title>Rounder Slider</title>
+        <style>
+            @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css");
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+            
+            body {
+                font-family: sans-serif;
+                height: 100vh;
+            }
+            
+            .container {
+                position: relative;
+                overflow: hidden;
+                width: 100vw;
+                height: 100vh;
+            }
+            
+            .sidebar {
+                height: 100%;
+                width: 35%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                transition: transform 0.5s ease-in-out;
+            }
+            
+            .sidebar > div {
+                height: 100%;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                color: #fff;
+            }
+  
+            .sidebar h1 {
+                font-size: 40px;
+                margin-bottom: 10px;
+                margin-top: -30px;
+            }
+            
+            .main-slide {
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 35%;
+                width: 65%;
+                transition: transform 0.5s ease-in-out;
+            }
+            
+            .main-slide > div {
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-position: center center;
+                height: 100%;
+                width: 100%;
+            }
+  
+            button {
+                background-color: #fff;
+                border: none;
+                color: #aaa;
+                cursor: pointer;
+                font-size: 16px;
+                padding: 15px;
+            }
+            
+            button:hover {
+                color: #222;
+            }
+            
+            button:focus {
+                outline: none;
+            }
+            
+            .container .controls button {
+                position: absolute;
+                left: 35%;
+                top: 50%;
+                z-index: 100;
+            }
+            
+            .container .controls .down-button {
+                transform: translateX(-100%);
+                border-top-left-radius: 5px;
+                border-bottom-left-radius: 5px;
+            }
+            
+            .container .controls .up-button {
+                transform: translateY(-100%);
+                border-top-right-radius: 5px;
+                border-bottom-right-radius: 5px;
+            }
+        </style>  
+    </head>
+    <body translate="no">
+        <div class="container">
+            <div class="sidebar" style="top: -300vh; transform: translateY(444px);">
+                <div style="background: linear-gradient(229.99deg,  #E1E1E1 16%,  #C2BFBC 175%);">
+                    <h1>Above clouds</h1>
+                    <p>Be above clouds</p>
+                </div>
+                <div style="background: linear-gradient(215.32deg, #285D8C -1%, #2F2B1F 124%);">
+                    <h1>Mountains forest</h1>
+                    <p>Beatiful green mountain</p>
+                </div>
+                <div style="background: linear-gradient(221.87deg, #F1F1E0  1%, #6B868F 128%);">
+                    <h1>Valley</h1>
+                    <p>River valey</p>
+                </div>
+                <div style="background: linear-gradient(229.99deg,  #8D749C -26%,  #133465 145%);">
+                    <h1>Sky in mountains</h1>
+                    <p>Falling-star</p>
+                </div>
+            </div>
+            <div class="main-slide" style="transform: translateY(-444px);">
+                <div style="background-image: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1170&amp;q=80');"></div>
+                <div style="background-image: url('https://images.unsplash.com/photo-1465056836041-7f43ac27dcb5?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80');"></div>
+                <div style="background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1170&amp;q=80');"></div>
+                <div style="background-image: url('https://images.unsplash.com/photo-1458668383970-8ddd3927deed?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1167&amp;q=80');"></div>
+            </div>
+            <div class="controls">
+                <button class="down-button">
+                    <i class="fas fa-arrow-down"></i>
+                </button>
+                <button class="up-button">
+                    <i class="fas fa-arrow-up"></i>
+                </button>
+            </div>
+        </div>
+        <script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-1b93190375e9ccc259df3a57c1abc0e64599724ae30d7ea4c6877eb615f89387.js"></script>  
+        <script id="rendered-js">
+            const upBtn = document.querySelector('.up-button');
+            const downBtn = document.querySelector('.down-button');
+            const sidebar = document.querySelector('.sidebar');
+            const mainSlide = document.querySelector('.main-slide');
+            const slideCount = mainSlide.querySelectorAll('div').length;
+            const container = document.querySelector('.container');
+            let activeSlideIndex = 0;
+            function changeSlide(direction) {
+                if (direction === 'up') {
+                activeSlideIndex++;
+                if (activeSlideIndex > slideCount - 1) {
+                    activeSlideIndex = 0;
+                }
+                } else if (direction === 'down') {
+                activeSlideIndex--;
+                if (activeSlideIndex < 0) {
+                    activeSlideIndex = slideCount - 1;
+                }
+                }
+                const height = container.clientHeight;
+                mainSlide.style.transform = `translateY(-${activeSlideIndex * height}px)`;
+                sidebar.style.transform = `translateY(${activeSlideIndex * height}px)`;
+            }
+            sidebar.style.top = `-${(slideCount - 1) * 100}vh`;  
+            upBtn.addEventListener('click', () => {changeSlide('up');});
+            downBtn.addEventListener('click', () => {changeSlide('down');});
+            document.addEventListener('keydown', event => {
+                if (event.key === 'ArrowUp') {
+                changeSlide('up');
+            
+                } else if (event.key === 'ArrowDown') {
+                changeSlide('down');
+            
+                }
+            });
+            document.addEventListener('onwheel', event => {
+                console.log(event);
+            });
+            const sliderTimer = setInterval(() => changeSlide('up'), 4000);
+        </script>
+        <script src="https://cpwebassets.codepen.io/assets/editor/iframe/iframeRefreshCSS-4793b73c6332f7f14a9b6bba5d5e62748e9d1bd0b5c52d7af6376f3d1c625d7e.js"></script>
+        <script>
+            if (document.location.search.match(/type=embed/gi)) {
+            window.parent.postMessage("resize", "*");
+            }
+        </script>
+    </body>
+</html>
