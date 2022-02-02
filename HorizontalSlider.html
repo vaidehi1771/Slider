@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png">
+        <meta name="apple-mobile-web-app-title" content="CodePen">
+        <link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico">
+        <link rel="mask-icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111">
+        <title>Horizontal Slider</title>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;600&amp;display=swap" rel="stylesheet">
+        <style>
+            .center {
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            background-color: whitesmoke;
+            }
+
+            .item {
+            margin: 0;
+            position: absolute;
+            cursor: none;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            }    
+            .grd {
+            display: grid;
+            max-width: 1080px;
+            max-height: 600px;
+            grid-template-columns: 90px 900px 90px;
+            grid-template-rows: 600px;
+            grid-auto-flow: row;
+            gap: 0 0;
+            box-shadow:
+            0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+            0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+            0 12.5px 10px rgba(0, 0, 0, 0.06),
+            0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+            0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+            0 100px 80px rgba(0, 0, 0, 0.12)  
+            }
+            .col-lft {
+            grid-column: 1 / 2;
+            grid-row: 1;
+            background-color: #fff9e5;
+            align-items: center;
+            justify-content: center;
+            }
+            .col-main {
+            grid-column: 2 / 3;
+            grid-row: 1;
+            }
+            .col-rgt {
+            grid-column: 3 / 4;
+            grid-row: 1;
+            background-color: #fff9e5;
+            align-items: center;
+            justify-content: center;
+            }
+            .thb {
+            width: 90px;
+            height: 60px;
+            border-width: 4px;
+            border-style: solid;
+            border-radius: 8px;
+            border-color: #fff9e5;
+            box-shadow: 0 10px 6px -6px #777;
+            cursor: pointer;
+            }
+            .section {
+            margin-top: 32px;
+            width: 880px;
+            justify-content: space-between;
+            display: flex;
+            margin-left: auto;
+            margin-right: auto;
+            }
+
+            .glass {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            position: relative;
+            z-index: 1;
+            backdrop-filter: blur(2px);
+            background-clip: padding-box;
+            height: 166px;
+            top: -166px;
+            width: 900px;
+            }
+
+            #ttl {
+            font-family: 'Comfortaa', cursive;
+            font-size: 28px;
+            font-weight: 600;
+            color: white;
+            margin-left: 24px;
+            margin-top: 12px;
+            }
+            #desc {
+            font-family: 'Comfortaa', cursive;
+            font-size: 20px;
+            font-weight: 300;
+            color: white;
+            margin-left: 24px;
+            margin-right: 24px;
+            margin-top: 12px;
+            width: 852;
+            }
+            .stroke-text {
+            text-shadow: 1px 0 0 black, 0 1px 0 black, -1px 0 0 black, 0 -1px 0 black;
+            }
+            a[data-tooltip] {
+            position: relative;
+            }
+            a[data-tooltip]::before,
+            a[data-tooltip]::after {
+            position: absolute;
+            display: none;
+            opacity: 0.85;
+            }
+            a[data-tooltip]::before {
+            content: attr(data-tooltip);
+            background: #fff;
+            color: #444;
+            font-family: 'Comfortaa', cursive;
+            font-size: 18px;
+            font-weight: 300;
+            padding: 5px;
+            border: 1px solid black;
+            border-radius: 5px;
+            white-space: nowrap;
+            text-decoration: none;
+            z-index: 20;
+            }
+            a[data-tooltip]::after {
+            width: 0;
+            height: 0;
+            border: 6px solid transparent;
+            content: '';
+            }
+            a[data-tooltip]:hover::before,
+            a[data-tooltip]:hover::after {
+            display: block;
+            }
+            a[data-tooltip][data-placement="bottom"]::before {
+            top: 100%;
+            left: 0;
+            margin-top: 10px;
+            }
+            a[data-tooltip][data-placement="bottom"]::after {
+            border-bottom-color: #000;
+            border-top: none;
+            top: 100%;
+            left: 10px;
+            margin-top: 4px;
+            }
+            a[data-tooltip][data-placement="top"]::before {
+            bottom: 100%;
+            left: 0;
+            margin-bottom: 58px;
+            }
+            a[data-tooltip][data-placement="top"]::after {
+            border-top-color: #000;
+            border-bottom: none;
+            bottom: 100%;
+            left: 10px;
+            margin-bottom: 52px;
+            }
+            .arrow {
+            display: inline-block;
+            border-width: 2px;
+            border-color: lightgray;
+            border-top-style: solid;
+            border-left-style: solid;
+            width: 16px;
+            height: 16px;
+            }
+            .right {
+            transform: rotate(135deg);
+            position: relative;
+            top: 15px;
+            left: 11px;
+            caret-color: rgba(0,0,0,0);
+            }
+            .left {
+            transform: rotate(315deg);
+            position: relative;
+            top: 15px;
+            left: 17px;
+            caret-color: rgba(0,0,0,0);
+            }
+            .wrapper {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 2px solid lightgray;
+            margin-top: 274px;
+            margin-left: 19px;
+            }
+            .wrapper:hover {
+            background-color:#35798b;
+            border-color: #35798b;
+            cursor: pointer;
+            }
+            .wrapper:active {
+            transform: scale(1.1);  
+            }
+            .imgs-wrapper {
+            overflow: hidden;
+            }
+            .images {
+            width: 900px;
+            height: 600px;
+            display: flex;
+            }
+            .images .img {
+            height: 100%;
+            width: 100%;
+            flex-grow: 1;
+            flex-shrink: 0;
+            }
+            .img:nth-child(1) {
+            background: url("http://i.piccy.info/i9/94ae260190961fbbe3b61e9666ebdde9/1614105941/81129/1416938/p0.jpg")
+                no-repeat;
+            }
+            .img:nth-child(2) {
+            background: url("http://i.piccy.info/i9/36cfe4fb80c56003e1e8f6240f799015/1614106130/78735/1416938/p1.jpg")
+                no-repeat;
+            }
+            .img:nth-child(3) {
+            background: url("http://i.piccy.info/i9/8a82c755341dd5c3a2407b8049f46747/1614106057/82893/1416938/p2.jpg")
+                no-repeat;
+            }
+            .img:nth-child(4) {
+            background: url("http://i.piccy.info/i9/c81902eb6abfdd7794ecb48f1739c3a0/1614106170/63728/1416938/p3.jpg")
+                no-repeat;
+            }
+            .img:nth-child(5) {
+            background: url("http://i.piccy.info/i9/b6d89059969f32d09561c328f9bf3358/1614106195/67863/1416938/77716p4.jpg")
+                no-repeat;
+            }
+            .img:nth-child(6) {
+            background: url("http://i.piccy.info/i9/bcc794638486d370f2ee85b69d9cb83d/1614106235/29297/1416938/41211p5.jpg")
+                no-repeat;
+            }
+            .img:nth-child(7) {
+            background: url("http://i.piccy.info/i9/71dacbdb7b9808bcecd25f6efdc55ae9/1614106278/69224/1416938/p6.jpg")
+                no-repeat;
+            }
+            .img:nth-child(8) {
+            background: url("http://i.piccy.info/i9/8d470647b5e11b9051f2b3e4e59bc519/1614106342/77076/1416938/9381p7.jpg")
+                no-repeat;
+            }
+            .images  {
+            transition: transform 1s cubic-bezier(0.39, 0.575, 0.565, 1);
+            }
+        </style>
+    </head>
+    <body translate="no">
+        <div class="center">
+            <div class="item">
+                <div class="grd">
+                    <div class="col-lft">
+                        <div class="wrapper" onclick="leftMove()">
+                            <div class="arrow left"></div>
+                        </div>  
+                    </div>
+                    <div class="col-main">
+                        <div class="imgs-wrapper">
+                            <div class="images" style="transform: translateX(-100%);">
+                                <div class="img"></div>
+                                <div class="img"></div>
+                                <div class="img"></div>
+                                <div class="img"></div>
+                                <div class="img"></div>
+                                <div class="img"></div>
+                                <div class="img"></div>
+                                <div class="img"></div>
+                            </div>
+                        </div>        
+                        <div class="glass">
+                            <div id="ttl" class="stroke-text">Seljalandsfoss waterfall during the sunset, beautiful waterfall in iceland.</div>
+                                <div id="desc" class="stroke-text">Upscaling the resurgent networking exchange solutions, achieving a breakaway systemic electronic data interchange system synchronization, thereby exploiting technical environments for mission critical broad based  systems.</div>
+                        </div>
+                    </div>
+                    <div class="col-rgt">
+                        <div class="wrapper" onclick="rightMove()">
+                            <div class="arrow right"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section">
+                    <p style="margin:0; padding:0">
+                        <a href="#" data-tooltip="Vestrahorn mountains in stokksnes" data-placement="top">
+                        </a>
+                    </p>
+                    <div class="thb" onclick="tnClick('0')" id="0" style="border-color: rgb(255, 249, 229);">
+                        <a href="#" data-tooltip="Vestrahorn mountains in stokksnes" data-placement="top">
+                            <img style="border-radius:6px" src="http://i.piccy.info/i9/aafbdc2560ca3ef75bb3af9147d60258/1614101348/10060/1416938/tn0.jpg" alt="">
+                        </a>
+                    </div>
+                    <a href="#" data-tooltip="Vestrahorn mountains in stokksnes" data-placement="top">
+                    </a>      
+                    <p></p>      
+                    <p style="margin:0; padding:0">
+                        <a href="#" data-tooltip="Seljalandsfoss waterfall during the sunset" data-placement="top">
+                        </a>
+                    </p>
+                    <div class="thb" onclick="tnClick('1')" id="1" style="border-color: yellow;">
+                        <a href="#" data-tooltip="Seljalandsfoss waterfall during the sunset" data-placement="top">
+                            <img style="border-radius:6px;" src="http://i.piccy.info/i9/b4f34033ee4e265a8b12f6d09929edbf/1614101510/9319/1416938/tn1.jpg" alt="">
+                        </a>
+                    </div>
+                    <a href="#" data-tooltip="Seljalandsfoss waterfall during the sunset" data-placement="top">
+                    </a>
+                    <p></p>  
+                    <p style="margin:0; padding:0">
+                        <a href="#" data-tooltip="Cascade boat clean" data-placement="top">   
+                        </a>
+                    </p>
+                    <div class="thb" onclick="tnClick('2')" id="2">
+                        <a href="#" data-tooltip="Cascade boat clean" data-placement="top">
+                            <img style="border-radius:6px" src="http://i.piccy.info/i9/52c1976aec62d75a27a6fcacd6ae8154/1614103517/5861/1416938/tn2.jpg" alt="">
+                        </a>
+                    </div>
+                    <a href="#" data-tooltip="Cascade boat clean" data-placement="top">
+                    </a>
+                    <p></p>
+                    <p style="margin:0; padding:0">
+                        <a href="#" data-tooltip="Wide angle shot of a single tree growing" data-placement="top">   
+                        </a>
+                    </p>
+                    <div class="thb" onclick="tnClick('3')" id="3">
+                        <a href="#" data-tooltip="Wide angle shot of a single tree growing" data-placement="top">
+                            <img style="border-radius:6px" src="http://i.piccy.info/i9/d2fc4eb7fae3dfbdbece5dad440be4d7/1614103815/5009/1416938/tn3.jpg" alt="">
+                        </a>
+                    </div>
+                    <a href="#" data-tooltip="Wide angle shot of a single tree growing" data-placement="top">
+                    </a>
+                    <p></p>  
+                    <p style="margin:0; padding:0">
+                        <a href="#" data-tooltip="Pathway in the middle of the green leafed trees" data-placement="top">   
+                        </a>
+                    </p>
+                    <div class="thb" onclick="tnClick('4')" id="4">
+                        <a href="#" data-tooltip="Pathway in the middle of the green leafed trees" data-placement="top">
+                            <img style="border-radius:6px" src="http://i.piccy.info/i9/78cf5af933c699c5b64122ea51b0debd/1614103885/4418/1416938/29403tn4.jpg" alt="">
+                        </a>
+                    </div>
+                    <a href="#" data-tooltip="Pathway in the middle of the green leafed trees" data-placement="top">
+                    </a>
+                    <p></p>
+                    <p style="margin:0; padding:0">
+                        <a href="#" data-tooltip="Empty wooden dock in a lake" data-placement="top">   
+                        </a>
+                    </p>
+                    <div class="thb" onclick="tnClick('5')" id="5">
+                        <a href="#" data-tooltip="Empty wooden dock in a lake" data-placement="top">
+                            <img style="border-radius:6px" src="http://i.piccy.info/i9/e3eb1660c66cc005b034ec0ad2fb4c6d/1614103962/2962/1416938/tn5.jpg" alt="">
+                        </a>
+                    </div>
+                    <a href="#" data-tooltip="Empty wooden dock in a lake" data-placement="top">
+                    </a>
+                    <p></p>
+                    <p style="margin:0; padding:0">
+                        <a href="#" data-tooltip="Bukhansan mountains" data-placement="top">   
+                        </a>
+                    </p>
+                    <div class="thb" onclick="tnClick('6')" id="6">
+                        <a href="#" data-tooltip="Bukhansan mountains" data-placement="top">
+                            <img style="border-radius:6px" src="http://i.piccy.info/i9/34c3d0f21de762da27cb998e32d0e2d3/1614103990/9109/1416938/tn6.jpg" alt="">
+                        </a>
+                    </div>
+                    <a href="#" data-tooltip="Bukhansan mountains" data-placement="top">
+                    </a>
+                    <p></p>
+                    <p style="margin:0; padding:0">
+                        <a href="#" data-tooltip="Aerial view of the beautiful landscape" data-placement="top">   
+                        </a>
+                    </p>
+                    <div class="thb" onclick="tnClick('7')" id="7">
+                        <a href="#" data-tooltip="Aerial view of the beautiful landscape" data-placement="top">
+                            <img style="border-radius:4px" src="http://i.piccy.info/i9/de6a96811ce9d920111e4173c6b032fa/1614104015/5073/1416938/87467tn7.jpg" alt="">
+                        </a>
+                    </div>
+                    <a href="#" data-tooltip="Aerial view of the beautiful landscape" data-placement="top">
+                    </a>
+                    <p></p>
+                </div>  
+            </div>
+        </div>
+        <script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-1b93190375e9ccc259df3a57c1abc0e64599724ae30d7ea4c6877eb615f89387.js"></script>
+        <script id="rendered-js">
+            let idSel = 1;
+            function tnClick(el) {
+            let idClc = parseInt(el, 10);
+            if (idSel != idClc) {
+                newSel(idClc);
+                clearGlass();
+                transform(idClc);
+                index = idSel;
+            }
+            return false;
+            }
+            function newSel(id) {
+            document.getElementById(idSel.toString()).style.borderColor = '#fff9e5';
+            idSel = id;
+            document.getElementById(idSel.toString()).style.borderColor = 'yellow';
+            setMainImg(idSel);
+            }
+            function setMainImg(id)
+            {
+            let ttl = document.getElementById('ttl');
+            ttl.innerText = datas[id].title;
+            let desc = document.getElementById('desc');
+            desc.innerText = datas[id].desc;
+            }
+            let datas = [
+            { photo: 'http://i.piccy.info/i9/94ae260190961fbbe3b61e9666ebdde9/1614105941/81129/1416938/p0.jpg',
+            title: 'Vestrahorn mountains in stokksnes, iceland.',
+            desc: 'Perhaps a re-engineering of your current world view will re-energize your online nomenclature to enable a new holistic interactive enterprise internet communication solution.' },
+
+            { photo: 'http://i.piccy.info/i9/36cfe4fb80c56003e1e8f6240f799015/1614106130/78735/1416938/p1.jpg',
+            title: 'Seljalandsfoss waterfall during the sunset, beautiful waterfall in iceland.',
+            desc: 'Upscaling the resurgent networking exchange solutions, achieving a breakaway systemic electronic data interchange system synchronization, thereby exploiting technical environments for mission critical broad based  systems.' },
+
+            { photo: 'http://i.piccy.info/i9/8a82c755341dd5c3a2407b8049f46747/1614106057/82893/1416938/p2.jpg',
+            title: 'Cascade boat clean china natural rural',
+            desc: 'Fundamentally transforming well designed actionable information whose semantic content is virtually null.' },
+
+            { photo: 'http://i.piccy.info/i9/c81902eb6abfdd7794ecb48f1739c3a0/1614106170/63728/1416938/p3.jpg',
+            title: 'Wide angle shot of a single tree growing under a clouded sky during a sunset surrounded by grass',
+            desc: 'To more fully clarify the current exchange, a few aggregate issues will require addressing to facilitate this distributed communication venue.' },
+
+            { photo: 'http://i.piccy.info/i9/b6d89059969f32d09561c328f9bf3358/1614106195/67863/1416938/77716p4.jpg',
+            title: 'Pathway in the middle of the green leafed trees with the sun shining through the branches',
+            desc: 'In integrating non-aligned structures into existing legacy systems, a holistic gateway blueprint is a backward compatible packaging tangible of immeasurable strategic value in right-sizing conceptual frameworks.' },
+
+            { photo: 'http://i.piccy.info/i9/bcc794638486d370f2ee85b69d9cb83d/1614106235/29297/1416938/41211p5.jpg',
+            title: 'Empty wooden dock in a lake during a breathtaking sunset- a cool background',
+            desc: 'Implementing these goals requires a careful examination to encompass an increasing complex out sourcing disbursement to ensure the extant parameters are not exceeded while focusing on infrastructure cohesion.' },
+
+            { photo: 'http://i.piccy.info/i9/71dacbdb7b9808bcecd25f6efdc55ae9/1614106278/69224/1416938/p6.jpg',
+            title: 'Bukhansan mountains is covered by morning fog and sunrise in seoul,korea',
+            desc: 'Dynamic demand forecasting indicates that a mainstream approach may establish a basis for leading-edge information processing to insure the diversity of granularity in encompassing expansion of content provided.' },
+
+            { photo: 'http://i.piccy.info/i9/8d470647b5e11b9051f2b3e4e59bc519/1614106342/77076/1416938/9381p7.jpg',
+            title: 'Aerial view of the beautiful and colorful landscape on the background of amazing mountains',
+            desc: 'Empowerment in information design literacy demands the immediate and complete disregard of the entire contents of this cyberspace communication.' }];
+            function leftMove() {
+            if (idSel > 0) {
+                document.getElementById(idSel.toString()).style.borderColor = '#fff9e5';
+                idSel--;
+                document.getElementById(idSel.toString()).style.borderColor = 'yellow';
+            } else
+            {
+                document.getElementById('0').style.borderColor = '#fff9e5';
+                idSel = 7;
+                newSel(7);
+            }
+            clearGlass();
+            transform(index = index > 0 ? --index : 7);
+            }
+            function rightMove() {
+            if (idSel < 7) {
+                document.getElementById(idSel.toString()).style.borderColor = '#fff9e5';
+                idSel++;
+                document.getElementById(idSel.toString()).style.borderColor = 'yellow';
+            } else
+            {
+                document.getElementById('7').style.borderColor = '#fff9e5';
+                idSel = 0;
+                newSel(0);
+            }
+            clearGlass();
+            transform(index = index < 7 ? ++index : 0);
+            }
+            function transform(index) {
+            images.style.transform = `translateX(-${index * 100}%)`;
+            }
+            function clearGlass() {
+            let ttl = document.getElementById('ttl');
+            ttl.innerText = '';
+            let desc = document.getElementById('desc');
+            desc.innerText = '';
+            }
+
+            const images = document.querySelector(".images");
+            images.addEventListener('transitionend', function () {
+            let ttl = document.getElementById('ttl');
+            ttl.innerText = datas[idSel].title;
+            let desc = document.getElementById('desc');
+            desc.innerText = datas[idSel].desc;
+            });
+            let index = 0;
+            newSel(0);
+        </script>
+        <script>
+            window.console = window.console || function(t) {};
+        </script> 
+        <script>
+            if (document.location.search.match(/type=embed/gi)) {
+            window.parent.postMessage("resize", "*");
+            }
+        </script>
+    </body>
+</html>
