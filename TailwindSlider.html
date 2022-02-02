@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png">
+        <meta name="apple-mobile-web-app-title" content="CodePen">
+        <link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico">
+        <link rel="mask-icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111">
+        <title>Tailwind Slider</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.1.2/tailwind.min.css">
+        <style>
+            #header_slider #slide_item:nth-child(1){
+            background:url("https://images.pexels.com/photos/374885/pexels-photo-374885.jpeg") no-repeat center center;
+            background-size: cover;
+            }
+
+            #header_slider #slide_item:nth-child(2){ background:url("https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg") no-repeat center center;
+            background-size: cover;
+            }
+
+            #header_slider #slide_item:nth-child(3){
+            background:url("https://images.pexels.com/photos/2067628/pexels-photo-2067628.jpeg") no-repeat center center;
+            background-size: cover;
+            }
+        </style>
+    </head>
+    <body translate="no">
+        <div id="header_slider" class="relative w-10/12 h-96 overflow-hidden mx-auto mt-10">
+            <div id="slide_item" class="absolute px-10 pb-10 inset-0 bg-pink-500 flex items-end justify-center transition-all ease-in-out duration-1000 transform slide translate-x-0">
+                <p class="bg-gray-900 px-7 py-3 text-white font-bold uppercase rounded-md opacity-80">Start your morning with a cup of coffee</p>
+            </div>
+            <div id="slide_item" class="absolute px-10 pb-10 inset-0 bg-purple-500 flex items-end justify-center transition-all ease-in-out duration-1000 transform slide translate-x-full">
+                <p class="bg-gray-900 px-7 py-3 text-white font-bold uppercase rounded-md opacity-80">Take a break, drink some coffee</p>
+            </div>
+            <div id="slide_item" class="absolute px-10 pb-10 inset-0 bg-blue-500 flex items-end justify-center transition-all ease-in-out duration-1000 transform slide translate-x-full">
+                <p class="bg-gray-900 px-7 py-3 text-white font-bold uppercase rounded-md opacity-80">Coffee is always a good idea</p>
+            </div>
+            <div class="absolute z-10 ml-16 bg-gray-200 w-16 h-16 flex items-center justify-center text-black cursor-pointer" onclick="nextSlide()">
+                ❯
+            </div>
+            <div class="absolute z-10 bg-gray-200 w-16 h-16 mr-16 border-r border-gray-400 flex items-center justify-center text-black cursor-pointer" onclick="previousSlide()">
+                ❮
+            </div>
+        </div>
+        <script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-1b93190375e9ccc259df3a57c1abc0e64599724ae30d7ea4c6877eb615f89387.js"></script>
+        <script id="rendered-js">
+            let i = 1;
+            function nextSlide() {
+                if (i == 3) {
+                    let activeSlide = document.querySelector('.slide.translate-x-0');
+                    activeSlide.classList.remove('translate-x-0');
+                    activeSlide.classList.add('translate-x-full');
+                    let nextSlide = activeSlide.previousElementSibling.previousElementSibling;
+                    nextSlide.classList.remove('translate-x-full');
+                    nextSlide.classList.add('translate-x-0');
+                    i = 1;
+                } else
+                {
+                    i++;
+                    let activeSlide = document.querySelector('.slide.translate-x-0');
+                    activeSlide.classList.remove('translate-x-0');
+                    activeSlide.classList.add('translate-x-full');
+                    let nextSlide = activeSlide.nextElementSibling;
+                    nextSlide.classList.remove('translate-x-full');
+                    nextSlide.classList.add('translate-x-0');
+                }
+            }
+            function previousSlide() {
+                if (i == 1) {
+                    let activeSlide = document.querySelector('.slide.translate-x-0');
+                    activeSlide.classList.remove('translate-x-0');
+                    activeSlide.classList.add('translate-x-full');
+                    let previousSlide = activeSlide.nextElementSibling.nextElementSibling;
+                    previousSlide.classList.remove('translate-x-full');
+                    previousSlide.classList.add('translate-x-0');
+                    i = 3;
+                } else
+                {
+                    i--;
+                    let activeSlide = document.querySelector('.slide.translate-x-0');
+                    activeSlide.classList.remove('translate-x-0');
+                    activeSlide.classList.add('translate-x-full');
+                    let previousSlide = activeSlide.previousElementSibling;
+                    previousSlide.classList.remove('translate-x-full');
+                    previousSlide.classList.add('translate-x-0');
+                }
+            }
+        </script>
+        <script>
+            window.console = window.console || function(t) {};
+        </script>
+        <script>
+            if (document.location.search.match(/type=embed/gi)) {
+              window.parent.postMessage("resize", "*");
+            }
+        </script>
+    </body>
+</html>

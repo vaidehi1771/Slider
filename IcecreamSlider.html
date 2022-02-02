@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png">
+        <meta name="apple-mobile-web-app-title" content="CodePen">
+        <link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico">
+        <link rel="mask-icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111">
+        <title>ICECREAM SLILDER</title>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&amp;display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+            
+            body {
+                font-family: "Gloria Hallelujah", cursive;
+                color: #2c3e50;
+                background: #957dad;
+                font-size: 18px;
+                height: 100vh;
+                width: 100vw;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .background {
+                position: fixed;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                right: 0;
+                height: 100%;
+                width: 100%;
+                z-index: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .background svg {
+                max-width: 1024px;
+            }
+            
+            .icecream-builder {
+                position: absolute;
+                height: 100%;
+                width: 100%;
+                max-width: 640px;
+                margin: 0 auto;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 1;
+            }
+            
+            .icecream {
+                margin: 1rem;
+                flex: 1;
+                height: 600px;
+            }
+            .icecream svg {
+                height: 100%;
+                overflow: visible;
+            }
+            
+            .icecream-controls {
+                flex: 1;
+                display: flex;
+                flex-flow: column;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .scoop {
+                height: 100px;
+                width: 150px;
+                background: blue;
+            }
+            
+            .scoop:first-child {
+                background: red;
+            }
+            
+            .scoop:last-child {
+                background: green;
+            }
+            
+            .cone {
+                background: brown;
+                height: 200px;
+                width: 150px;
+            }
+            
+            input[type=range] {
+                width: 100%;
+                margin: 7.05px 0;
+                background-color: transparent;
+                -webkit-appearance: none;
+            }
+            
+            input[type=range]:focus {
+                outline: none;
+            }
+            
+            input[type=range]::-webkit-slider-runnable-track {
+                background: #fec8d8;
+                border: 0;
+                border-radius: 25px;
+                width: 100%;
+                height: 17.9px;
+                cursor: pointer;
+            }
+            
+            input[type=range]::-webkit-slider-thumb {
+                margin-top: -7.05px;
+                width: 40px;
+                height: 32px;
+                background: #e0bbe4;
+                border: 0;
+                border-radius: 11px;
+                cursor: pointer;
+                -webkit-appearance: none;
+            }
+            
+            input[type=range]:focus::-webkit-slider-runnable-track {
+                background: #fff0f4;
+            }
+            
+            input[type=range]::-moz-range-track {
+                background: #fec8d8;
+                border: 0;
+                border-radius: 25px;
+                width: 100%;
+                height: 17.9px;
+                cursor: pointer;
+            }
+            
+            input[type=range]::-moz-range-thumb {
+                width: 40px;
+                height: 32px;
+                background: #e0bbe4;
+                border: 0;
+                border-radius: 11px;
+                cursor: pointer;
+            }
+            
+            input[type=range]::-ms-track {
+                background: transparent;
+                border-color: transparent;
+                border-width: 11.15px 0;
+                color: transparent;
+                width: 100%;
+                height: 17.9px;
+                cursor: pointer;
+            }
+            
+            input[type=range]::-ms-fill-lower {
+                background: #fda0bc;
+                border: 0;
+                border-radius: 50px;
+            }
+            
+            input[type=range]::-ms-fill-upper {
+                background: #fec8d8;
+                border: 0;
+                border-radius: 50px;
+            }
+            
+            input[type=range]::-ms-thumb {
+                width: 40px;
+                height: 32px;
+                background: #e0bbe4;
+                border: 0;
+                border-radius: 11px;
+                cursor: pointer;
+                margin-top: 0px;
+            }
+            
+            input[type=range]:focus::-ms-fill-lower {
+                background: #fec8d8;
+            }
+            
+            input[type=range]:focus::-ms-fill-upper {
+                background: #fff0f4;
+            }
+            
+            @supports (-ms-ime-align: auto) {
+                input[type=range] {
+                margin: 0;
+                }
+            }
+        </style>
+    </head>
+    <body translate="no">
+        <div class="background">
+            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <title>Background</title>
+                <path fill="#FFFFFF" d="M65.1,-38.4C73.3,-23.4,61.2,2.4,46.9,24.2C32.7,45.9,16.3,63.6,-6.3,67.2C-28.9,70.8,-57.7,60.4,-63.2,43.7C-68.7,27,-50.8,4,-36.3,-14.5C-21.9,-33.1,-10.9,-47.3,8.8,-52.3C28.5,-57.4,56.9,-53.3,65.1,-38.4Z" transform="translate(100 100)"></path>
+            </svg>
+        </div>
+        <div class="icecream-builder">
+            <div class="icecream">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 191.24 709.03">
+                    <title>Ice Cream Cone</title>
+                    <defs>
+                        <style>
+                            .cls-1 {
+                            fill: #fbb03b
+                            }
+                
+                            .cls-1,
+                            .cls-2 {
+                            stroke: #f7931e
+                            }
+                
+                            .cls-1,
+                            .cls-2,
+                            .cls-8 {
+                            stroke-miterlimit: 10
+                            }
+                
+                            .cls-2 {
+                            fill: none
+                            }
+                
+                            .cls-8 {
+                            fill: #603813;
+                            stroke: #42210b
+                            }
+                        </style>
+                    </defs>
+                    <g id="icecream">
+                        <g id="cone">
+                            <rect class="cls-1" x="14.13" y="523.53" width="150" height="60" rx="7.25"></rect>
+                            <path class="cls-1" d="M124.92 708.53h-75l-22.12-125h122.67l-25.55 125z"></path>
+                            <path class="cls-2" d="M147.35 598.79L30.4 598.2 48 697.67h79.14l20.21-98.88z"></path>
+                            <g id="cross-hatch">
+                                <path class="cls-2" d="M90.5 609.04l18.27 21.37M84.09 614.76l18.01 21.06M102.58 608.98l-18.49 21.63M109.52 615.77l-17.14 20.05"></path>
+                            </g>
+                            <g id="cross-hatch-2" data-name="cross-hatch">
+                                <path class="cls-2" d="M61.46 644.4l18.27 21.37M55.04 650.12l18.01 21.07M73.54 644.34l-18.5 21.64M80.48 651.14l-17.15 20.05"></path>
+                            </g>
+                            <g id="cross-hatch-3" data-name="cross-hatch">
+                                <path class="cls-2" d="M103.22 660.71l18.27 21.37M96.8 666.43l18.01 21.07M115.3 660.66l-18.5 21.63M122.23 667.45l-17.14 20.05"></path>
+                            </g>
+                        </g>
+                        <g class="scoops">
+                            <g id="strawberry" class="scoop" data-svg-origin="0.5015869140625 401.39990234375" transform="matrix(1,0,0,1,0,0)" style="transform-origin: 0px 0px; opacity: 1;">
+                                <path d="M75.62 526.62a86.1 86.1 0 0013.75 1.12A85 85 0 00106 526.1l.21-.08c8.6-2.44 30.16 4.16 49 5.16 20 1.06 20.11-1.83 22.85-7.06 2.18-4.18 9.54-6.22-18.46-40.7a54.91 54.91 0 003.33-18.85c0-34.89-32.9-63.17-73.49-63.17s-73.5 28.28-73.5 63.17a55.3 55.3 0 004.07 20.74C-6.26 518 .87 520 3 524.12c2.74 5.23 2.86 8.12 22.85 7.06 15.23-.81 31.56-6.45 42.78-6q3.4.87 7 1.44" fill="#ffb299" stroke="#ff8599" stroke-miterlimit="10" id="strawberry-scoop"></path>
+                            </g>
+                            <g id="vanilla" class="scoop" data-svg-origin="12.130245208740234 305.3509521484375" transform="matrix(1,0,0,1,0,0)" style="transform-origin: 0px 0px; opacity: 1;">
+                                <path id="vanilla-scoop" d="M84.81 427.62a86 86 0 0013.36 3.45 85 85 0 0016.63 1.22h.22c8.89-.94 29 9.24 47.37 13.44 19.52 4.46 20.13 1.63 23.72-3.05 2.86-3.74 10.46-4.5-11.23-43.26a55.32 55.32 0 006.5-18c6-34.38-21.64-67.86-61.63-74.8S42.5 321.9 36.54 356.27A55.12 55.12 0 0037 377.4c-31.39 27.72-24.72 31-23.31 35.35 1.8 5.62 1.43 8.49 21.31 10.86 15.14 1.8 32.19-1 43.18 1.39q3.21 1.44 6.6 2.61" fill="#fff0cb" stroke="#ebecb0" stroke-miterlimit="10"></path>
+                            </g>
+                            <g id="chocolate" class="scoop" data-svg-origin="7.176769256591797 201.70184326171875" transform="matrix(1,0,0,1,0,0)" style="transform-origin: 0px 0px; opacity: 1;">
+                                <path id="chocolate-scoop" data-name="scoop" d="M82.83 328.53a85.27 85.27 0 0029.94-5l.19-.11c8.15-3.68 30.44-.35 49.19-2.14 19.93-1.9 19.62-4.78 21.56-10.36 1.54-4.45 8.51-7.56-24.27-37.52a55.05 55.05 0 00.5-19.14c-5.15-34.51-41.88-57.61-82-51.61S9.41 241.48 14.57 276a55 55 0 007.09 19.91c-21.08 36.19-13.73 37.15-11 40.89 3.48 4.77 4 7.61 23.65 3.6 14.94-3.05 30.25-11 41.42-12.26q3.5.35 7.08.4" fill="#c69c6d" stroke="#a67c52" stroke-miterlimit="10"></path>
+                            </g>
+                            <g id="bubblegum" class="scoop" data-svg-origin="11.322242736816406 100.54310607910156" transform="matrix(1,0,0,1,0,0)" style="transform-origin: 0px 0px; opacity: 1;">
+                                <path id="bubblegum-scoop" data-name="scoop" d="M85.31 224.27a84.69 84.69 0 0030.26 2.4l.21-.06c8.8-1.6 29.62 7 48.25 9.83 19.8 3 20.2.12 23.42-4.83 2.58-4 10.09-5.27-14.46-42.28a55.14 55.14 0 005.12-18.45c3.35-34.72-26.68-66-67.09-69.93S35.15 122 31.8 156.77a55.09 55.09 0 002.06 21c-29.21 30-22.32 32.72-20.58 37 2.22 5.47 2.06 8.36 22.07 9.22 15.23.66 32-3.38 43.16-1.87q3.3 1.18 6.77 2.1" fill="#b8e5e2" stroke="#72cce2" stroke-miterlimit="10"></path>
+                            </g>
+                            <g id="mint-choco-chip" class="scoop" data-svg-origin="11.154888153076172 0.5011558532714844" transform="matrix(1,0,0,1,0,0)" style="transform-origin: 0px 0px; opacity: 1;">
+                                <path id="mint-choco-chip-scoop" data-name="scoop" d="M86.71 126.6a84.43 84.43 0 0013.79.14 85.17 85.17 0 0016.44-2.8l.2-.1c8.41-3 30.38 2 49.21 1.67 20-.35 19.94-3.25 22.29-8.66 1.89-4.32 9.08-6.87-21.29-39.29a55.05 55.05 0 002-19C166.86 23.72 132-2.16 91.55.72S20.24 34.14 22.71 68.94a55.09 55.09 0 005.54 20.4c-23.82 34.45-16.57 36-14.14 39.91 3.1 5 3.42 7.9 23.29 5.42 15.13-1.88 31-8.66 42.25-9 2.3.41 4.65.72 7 .94" fill="#bcf59c" stroke="#8cc63f" stroke-miterlimit="10"></path>
+                                <path id="chip" class="cls-8" d="M51 51.71c0 2.06-2.83 4.15-4.89 4.15s-4-2.31-4-4.37.06-5.18 2.11-5.18S51 49.66 51 51.71z"></path>
+                                <path id="chip-2" data-name="chip" class="cls-8" d="M114 23.22c0 1.87 2.38 3.78 4.11 3.78s3.33-2.11 3.33-4 0-4.73-1.77-4.73-5.67 3.08-5.67 4.95z"></path>
+                                <path id="chip-3" data-name="chip" class="cls-8" d="M84.14 66.46c-1.67-.18-3.6 1.77-3.75 3.31s1.57 3.17 3.24 3.35 4.22.39 4.37-1.12-2.19-5.37-3.86-5.54z"></path>
+                                <path id="chip-4" data-name="chip" class="cls-8" d="M151 85.54c-1.55.82-1.83 4.11-.88 5.9a4.13 4.13 0 005.12 1.71c1.55-.82 3.88-2.12 2.94-3.91s-5.66-4.52-7.18-3.7z"></path>
+                                <path id="chip-5" data-name="chip" class="cls-8" d="M42.18 98.41c0 1.87 2.38 3.77 4.11 3.77s3.33-2.1 3.33-4 0-4.72-1.77-4.72-5.67 3.07-5.67 4.95z"></path>
+                                <path id="chip-6" data-name="chip" class="cls-8" d="M98.42 96.72c-1.67-.17-3.59 1.78-3.75 3.32s1.57 3.17 3.25 3.35 4.22.39 4.38-1.15-2.2-5.34-3.88-5.52z"></path>
+                                <path id="chip-7" data-name="chip" class="cls-8" d="M76.8 20.24c-1.55.82-1.82 4.12-.88 5.91a4.14 4.14 0 005.08 1.7c1.59-.85 3.93-2.11 3-3.85s-5.65-4.58-7.2-3.76z"></path>
+                                <path id="chip-8" data-name="chip" class="cls-8" d="M121 54.42c0 2-2.84 4.15-4.89 4.15s-4-2.32-4-4.38 0-5.18 2.11-5.18 6.78 3.35 6.78 5.41z"></path>
+                                <path id="chip-9" data-name="chip" class="cls-8" d="M151.59 61.27c0 2-2.84 4.15-4.89 4.15s-4-2.32-4-4.37.06-5.19 2.12-5.19 6.77 3.35 6.77 5.41z"></path>
+                            </g>
+                        </g>
+                    </g>
+                </svg>
+            </div>
+            <div class="icecream-controls">
+                <h1>Icecream Builder</h1>
+                <h2>How many scoops?</h2>
+                <input type="range" id="scoops-amt" name="points" value="0" min="0" max="1" step="0.20" orient="vertical">
+            </div>
+        </div>
+        <script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-1b93190375e9ccc259df3a57c1abc0e64599724ae30d7ea4c6877eb615f89387.js"></script>
+        <script src="https://unpkg.co/gsap@3/dist/gsap.min.js"></script>
+        <script id="rendered-js">
+            const slider = document.getElementById("scoops-amt");
+            
+            const scoopTL = new gsap.timeline({
+                paused: true });
+            
+            
+            scoopTL.from(".scoop", {
+                opacity: 0,
+                y: -100,
+                stagger: 1,
+                ease: "back.out(2)",
+                duration: 0.35 });
+            
+            
+            slider.addEventListener("change", event => {
+                const value = event.target.value;
+                gsap.to(scoopTL, {
+                progress: value,
+                duration: 2 });
+            
+            });
+        </script>
+        <script>
+            window.console = window.console || function(t) {};
+        </script>
+        <script>
+            if (document.location.search.match(/type=embed/gi)) {
+            window.parent.postMessage("resize", "*");
+            }
+        </script>  
+    </body>
+</html>
